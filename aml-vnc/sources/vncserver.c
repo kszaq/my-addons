@@ -43,7 +43,7 @@ unsigned int *vncbuf;
 
 static rfbScreenInfoPtr vncscr;
 
-uint32_t idle = 0;
+uint32_t idle = 1;
 uint32_t standby = 1;
 
 //reverse connection
@@ -236,17 +236,13 @@ int main(int argc, char **argv)
     while (1) {
         usec=(vncscr->deferUpdateTime+standby)*1000;
         rfbProcessEvents(vncscr,usec);
-        update_screen();
 	if (idle)
-        	standby = 50;
+		standby = 100;
 	else
-        	standby = 2;
+ 		standby = 10;
 
-	if (vncscr->clientHead == NULL)
-	{
-        	idle = 1;
-        	standby = 50;
-      	}
+	if (vncscr->clientHead != NULL)
+	        update_screen();
     }
     close_app();
 }
