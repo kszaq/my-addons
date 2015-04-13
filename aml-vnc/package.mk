@@ -20,19 +20,23 @@ PKG_NAME="aml-vnc"
 PKG_VERSION="0.1"
 PKG_REV="1"
 PKG_ARCH="arm"
-PKG_LICENSE="GPL"
-PKG_SITE=""
+PKG_LICENSE="OSS"
+PKG_SITE="https://github.com/kszaq/aml-vnc"
 PKG_URL=""
 PKG_DEPENDS_TARGET="toolchain libvncserver"
 PKG_PRIORITY="optional"
-PKG_SECTION="devel"
+PKG_SECTION="service/system"
 PKG_SHORTDESC="VNC Server for Amlogic devices"
-PKG_LONGDESC="GLES-VNC: VNC Server for Amlogic devices"
+PKG_LONGDESC="VNC Server for Amlogic devices"
+PKG_DISCLAIMER="this is an unofficial addon. please don't ask for support in openelec forum / irc channel"
 
 PKG_IS_ADDON="yes"
+PKG_ADDON_TYPE="xbmc.service"
+PKG_ADDON_PROVIDES=""
+
 PKG_AUTORECONF="no"
 
-PKG_ADDON_TYPE="xbmc.python.script"
+PKG_MAINTAINER="kszaq (kszaquitto at gmail.com)"
 
 makeinstall_target() {
   : # nop
