@@ -50,19 +50,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #endif
 
 struct fbinfo {
-    unsigned int version;
-    unsigned int bpp;
-    unsigned int size;
-    unsigned int width;
-    unsigned int height;
-    unsigned int red_offset;
-    unsigned int red_length;
-    unsigned int blue_offset;
-    unsigned int blue_length;
-    unsigned int green_offset;
-    unsigned int green_length;
-    unsigned int alpha_offset;
-    unsigned int alpha_length;
+	unsigned int version;
+	unsigned int bpp;
+	unsigned int size;
+	unsigned int width;
+	unsigned int height;
+	unsigned int red_offset;
+	unsigned int red_length;
+	unsigned int blue_offset;
+	unsigned int blue_length;
+	unsigned int green_offset;
+	unsigned int green_length;
+	unsigned int alpha_offset;
+	unsigned int alpha_length;
 } __attribute__((packed));
 
 typedef int (*init_fn_type)(void);

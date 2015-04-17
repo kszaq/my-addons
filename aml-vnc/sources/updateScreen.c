@@ -24,50 +24,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "bgra2rgb565_neon.h"
 
-void FUNCTION(void)
-{
-  int i,j;
-  int offset=0,pixelToVirtual;
-  OUT_T* a;
-  OUT_T* b = 0;
-  struct fb_var_screeninfo scrinfo; //we'll need this to detect double FB on framebuffer
-
-  scrinfo = FB_getscrinfo();
-  b = (OUT_T*) readBufferFB();
-
-  a = (OUT_T*)cmpbuf;
-  int max_x=-1,max_y=-1, min_x=99999, min_y=99999;
-  idle=1;
-
-    for (j = 0; j < vncscr->height; j++) {
-      offset = j * vncscr->width;
-
-      for (i = 0; i < vncscr->width; i++) {
-
-        // multiply by 2 for scaling
-        pixelToVirtual = PIXEL_TO_VIRTUALPIXEL_FB(i*2,j*2);
-
-        if (a[i + offset]!=b[pixelToVirtual]) {
-          a[i + offset]=b[pixelToVirtual];
-          if (i>max_x) max_x=i;
-          if (i<min_x) min_x=i;
-
-          if (j>max_y) max_y=j;
-          if (j<min_y) min_y=j;
-
-          idle=0;
-        }
-      }
-    }
-
-  if (!idle) {
-    _bgra2rgb565_neon(vncbuf, a, (screenformat.size/2) );
-
-    min_x--;
-    min_x--;
-    max_x++;
-    max_y++;
-
-    rfbMarkRectAsModified(vncscr, min_x, min_y, max_x, max_y);
-  }
+void FUNCTION(void) {
+	int i, j;
+	int offset = 0, pixelToVirtual;
+	OUT_T* a;
+	OUT_T* b = 0;
+	struct fb_var_screeninfo scrinfo; //we'll need this to detect double FB on framebuffer
+	
+	scrinfo = FB_getscrinfo();
+	b = (OUT_T*) readBufferFB();
+	
+	a = (OUT_T*)cmpbuf;
+	int max_x = -1, max_y = -1, min_x = 99999, min_y = 99999;
+	idle = 1;
+	
+	for (j = 0; j < vncscr->height; j++) {
+		offset = j * vncscr->width;
+		
+		for (i = 0; i < vncscr->width; i++) {
+			
+			// multiply by 2 for scaling
+			pixelToVirtual = PIXEL_TO_VIRTUALPIXEL_FB(i * 2, j * 2);
+			
+			if (a[i + offset]!=b[pixelToVirtual]) {
+				a[i + offset]=b[pixelToVirtual];
+				if (i>max_x) max_x=i;
+				if (i<min_x) min_x=i;
+				
+				if (j>max_y) max_y=j;
+				if (j<min_y) min_y=j;
+				
+				idle = 0;
+			}
+		}
+	}
+	
+	if (!idle) {
+		_bgra2rgb565_neon(vncbuf, a, (screenformat.size/2) );
+		
+		min_x--;
+		min_x--;
+		max_x++;
+		max_y++;
+		
+		rfbMarkRectAsModified(vncscr, min_x, min_y, max_x, max_y);
+	}
 }

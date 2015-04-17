@@ -57,6 +57,7 @@ void initUinput() {
 		exit(-1);
 	}
 }
+
 void closeUinput() {
 	ioctl(ufile, UI_DEV_DESTROY);
 	close(ufile);
