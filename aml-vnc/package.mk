@@ -45,4 +45,5 @@ makeinstall_target() {
 addon() {
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/bin
   cp -P $PKG_BUILD/aml-vnc $ADDON_BUILD/$PKG_ADDON_ID/bin
+  debug_strip $ADDON_BUILD/$PKG_ADDON_ID/
 }
