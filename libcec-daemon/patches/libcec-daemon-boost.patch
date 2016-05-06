@@ -1,0 +1,11 @@
+--- libcec-daemon-c8ad747/src/accumulator.hpp.orig	2016-05-06 11:47:25.661621862 +0200
++++ libcec-daemon-c8ad747/src/accumulator.hpp	2016-05-06 11:48:03.115878797 +0200
+@@ -48,6 +48,8 @@
+     virtual unsigned min_tokens() const { return 0; }
+     virtual unsigned max_tokens() const { return 0; }
+ 
++    virtual bool adjacent_tokens_only() const { return true; }
++
+     /// Accumulating from different sources is silly.
+     virtual bool is_composing() const { return false; }
+ 
