@@ -17,12 +17,12 @@
 ################################################################################
 
 PKG_NAME="libcec-daemon"
-PKG_VERSION="c8ad747"
-PKG_REV="1"
+PKG_VERSION="ff52cbe"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="https://github.com/Flos/libcec-daemon/"
-PKG_URL="https://github.com/Flos/libcec-daemon/archive/$PKG_VERSION.tar.gz"
+PKG_SITE="https://github.com/kszaq/libcec-daemon/"
+PKG_URL="https://github.com/kszaq/libcec-daemon/archive/$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain log4cplus boost libcec"
 PKG_PRIORITY="optional"
 PKG_SECTION="tools"
