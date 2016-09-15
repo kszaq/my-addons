@@ -30,6 +30,8 @@ unsigned int *fbmmap;
 
 char framebuffer_device[256] = "/dev/fb0";
 
+int roundUpToPageSize(int x);
+
 struct fb_var_screeninfo scrinfo;
 struct fb_fix_screeninfo fscrinfo;
 
@@ -86,15 +88,14 @@ int initFB(void) {
 	screenformat.width = scrinfo.xres / 2;
 	screenformat.height = scrinfo.yres / 2;
 	
-	// constants for RGB565
-	screenformat.bitsPerPixel = 16;
+	screenformat.bitsPerPixel = scrinfo.bits_per_pixel;
 	screenformat.size = screenformat.width * screenformat.height * screenformat.bitsPerPixel / CHAR_BIT;
-	screenformat.redShift = 11;
-	screenformat.redMax = 5;
-	screenformat.greenShift = 5;
-	screenformat.greenMax = 6;
-	screenformat.blueShift = 0;
-	screenformat.blueMax = 5;
+	screenformat.redShift = scrinfo.red.offset;
+	screenformat.redMax = scrinfo.red.length;
+	screenformat.greenShift = scrinfo.green.offset;
+	screenformat.greenMax = scrinfo.green.length;
+	screenformat.blueShift = scrinfo.blue.offset;
+	screenformat.blueMax = scrinfo.blue.length;
 	
 	return 1;
 }

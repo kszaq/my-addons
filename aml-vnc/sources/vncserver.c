@@ -75,8 +75,8 @@ rfbNewClientHookPtr clientHook(rfbClientPtr cl) {
 
 
 void initVncServer(int argc, char **argv) {
-	vncbuf = calloc(screenformat.width * screenformat.height, 16/CHAR_BIT);
-	cmpbuf = calloc(screenformat.width * screenformat.height, 32/CHAR_BIT);
+	vncbuf = calloc(screenformat.width * screenformat.height, screenformat.bitsPerPixel/CHAR_BIT);
+	cmpbuf = calloc(screenformat.width * screenformat.height, screenformat.bitsPerPixel/CHAR_BIT);
 	
 	assert(vncbuf != NULL);
 	assert(cmpbuf != NULL);
@@ -107,6 +107,7 @@ void initVncServer(int argc, char **argv) {
 	vncscr->serverFormat.greenMax = (( 1 << screenformat.greenMax) -1);
 	vncscr->serverFormat.blueMax = (( 1 << screenformat.blueMax) -1);
 	
+	vncscr->serverFormat.trueColour = TRUE;
 	vncscr->serverFormat.bitsPerPixel = screenformat.bitsPerPixel;
 	
 	vncscr->alwaysShared = TRUE;

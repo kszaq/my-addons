@@ -18,8 +18,8 @@
 
 PKG_NAME="aml-vnc"
 PKG_VERSION="0.1"
-PKG_REV="2"
-PKG_ARCH="arm"
+PKG_REV="3"
+PKG_ARCH="arm aarch64"
 PKG_LICENSE="OSS"
 PKG_SITE="https://github.com/kszaq/aml-vnc"
 PKG_URL=""

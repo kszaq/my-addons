@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #define OUT_T CONCAT3E(uint,OUT,_t)
 #define FUNCTION CONCAT2E(update_screen_,OUT)
 
-#include "bgra2rgb565_neon.h"
-
 void FUNCTION(void) {
 	int i, j;
 	int offset = 0, pixelToVirtual;
@@ -60,7 +58,7 @@ void FUNCTION(void) {
 	}
 	
 	if (!idle) {
-		_bgra2rgb565_neon(vncbuf, a, (screenformat.size/2) );
+		memcpy(vncbuf, a, screenformat.width * screenformat.height * screenformat.bitsPerPixel / CHAR_BIT);
 		
 		min_x--;
 		min_x--;
