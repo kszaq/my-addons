@@ -27,16 +27,17 @@ PKG_DEPENDS_TARGET="toolchain libvncserver"
 PKG_PRIORITY="optional"
 PKG_SECTION="service/system"
 PKG_SHORTDESC="VNC Server for Amlogic devices"
-PKG_LONGDESC="VNC Server for Amlogic devices"
+PKG_LONGDESC="Very basic VNC Server for Amlogic devices"
 PKG_DISCLAIMER="this is an unofficial addon. please don't ask for support in libreelec forum / irc channel"
 
 PKG_IS_ADDON="yes"
+PKG_ADDON_NAME="Amlogic VNC"
 PKG_ADDON_TYPE="xbmc.service"
 PKG_ADDON_PROVIDES=""
 
 PKG_AUTORECONF="no"
 
-PKG_MAINTAINER="kszaq (kszaquitto at gmail.com)"
+PKG_MAINTAINER="kszaq"
 
 makeinstall_target() {
   : # nop
