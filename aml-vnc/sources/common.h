@@ -75,7 +75,7 @@ int getCurrentRotation();
 int isIdle();
 void setIdle(int i);
 void close_app();
-screenFormat screenformat;
+extern screenFormat screenformat;
 
 #define ARR_LEN(a) (sizeof(a)/sizeof(a)[0])
 

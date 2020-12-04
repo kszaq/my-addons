@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "framebuffer.h"
 #include <limits.h>
 
+screenFormat screenformat;
+
 int fbfd = -1;
 unsigned int *fbmmap;
 
@@ -47,7 +49,7 @@ void update_fb_info(void) {
 }
 
 inline int roundUpToPageSize(int x) {
-	return (x + (getpagesize()-1)) & ~(getpagesize()-1);
+	return (x + (sysconf(_SC_PAGESIZE)-1)) & ~(sysconf(_SC_PAGESIZE)-1);
 }
 
 int initFB(void) {
