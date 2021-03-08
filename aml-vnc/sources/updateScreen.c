@@ -21,50 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define OUT_T CONCAT3E(uint,OUT,_t)
 #define FUNCTION CONCAT2E(update_screen_,OUT)
+#define COMPRECT 4
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 void FUNCTION(void) {
-	int i, j;
-	int offset = 0, pixelToVirtual;
-	OUT_T* a;
-	OUT_T* b = 0;
-	struct fb_var_screeninfo scrinfo; //we'll need this to detect double FB on framebuffer
-	
-	scrinfo = FB_getscrinfo();
-	b = (OUT_T*) readBufferFB();
-	
-	a = (OUT_T*)cmpbuf;
-	int max_x = -1, max_y = -1, min_x = 99999, min_y = 99999;
+	OUT_T* b = (OUT_T*)readBufferFB();
+	OUT_T* a = (OUT_T*)vncbuf;
+
 	idle = 1;
-	
-	for (j = 0; j < vncscr->height; j++) {
+
+	int i, j;
+	int offset = 0;
+	int max_x = -1, max_y = -1, min_x = 99999, min_y = 99999;
+
+	for (j = 0; j < vncscr->height; j+=COMPRECT) {
 		offset = j * vncscr->width;
-		
-		for (i = 0; i < vncscr->width; i++) {
-			
-			// multiply by 2 for scaling
-			pixelToVirtual = PIXEL_TO_VIRTUALPIXEL_FB(i * 2, j * 2);
-			
-			if (a[i + offset]!=b[pixelToVirtual]) {
-				a[i + offset]=b[pixelToVirtual];
-				if (i>max_x) max_x=i;
-				if (i<min_x) min_x=i;
-				
-				if (j>max_y) max_y=j;
-				if (j<min_y) min_y=j;
-				
+		for (i = 0; i < vncscr->width; i+=COMPRECT) {
+			if (a[i + offset] != b[i + offset]) {
+				max_x=MAX(i + COMPRECT, max_x);
+				min_x=MIN(i, min_x);
+				max_y=MAX(j + COMPRECT, max_y);
+				min_y=MIN(j, min_y);
 				idle = 0;
 			}
 		}
 	}
-	
+
 	if (!idle) {
-		memcpy(vncbuf, a, screenformat.width * screenformat.height * screenformat.bitsPerPixel / CHAR_BIT);
-		
-		min_x--;
-		min_x--;
-		max_x++;
-		max_y++;
-		
+		min_x=MAX(0, min_x);
+		min_y=MAX(0, min_y);
+		max_x=MIN(screenformat.width - 1, max_x);
+		max_y=MIN(screenformat.height - 1, max_y);
+
+		offset = min_x + screenformat.width * min_y;
+		memcpy(a + offset, b + offset, (max_x - min_x + screenformat.width * (max_y - min_y)) * screenformat.bitsPerPixel / CHAR_BIT);
 		rfbMarkRectAsModified(vncscr, min_x, min_y, max_x, max_y);
 	}
 }

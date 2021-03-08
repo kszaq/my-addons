@@ -86,9 +86,8 @@ int initFB(void) {
 		return -1;
 	}
 	
-	// always scale down by 2
-	screenformat.width = scrinfo.xres / 2;
-	screenformat.height = scrinfo.yres / 2;
+	screenformat.width = scrinfo.xres;
+	screenformat.height = scrinfo.yres;
 	
 	screenformat.bitsPerPixel = scrinfo.bits_per_pixel;
 	screenformat.size = screenformat.width * screenformat.height * screenformat.bitsPerPixel / CHAR_BIT;

@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 char VNC_PASSWORD[256] = "";
 int VNC_PORT = 5900;
 
-unsigned int *cmpbuf;
 unsigned int *vncbuf;
 
 static rfbScreenInfoPtr vncscr;
@@ -76,10 +75,8 @@ rfbNewClientHookPtr clientHook(rfbClientPtr cl) {
 
 void initVncServer(int argc, char **argv) {
 	vncbuf = calloc(screenformat.width * screenformat.height, screenformat.bitsPerPixel/CHAR_BIT);
-	cmpbuf = calloc(screenformat.width * screenformat.height, screenformat.bitsPerPixel/CHAR_BIT);
 	
 	assert(vncbuf != NULL);
-	assert(cmpbuf != NULL);
 	
 	vncscr = rfbGetScreen(&argc, argv, screenformat.width, screenformat.height, 0 /* not used */ , 3,  screenformat.bitsPerPixel/CHAR_BIT);
 	
