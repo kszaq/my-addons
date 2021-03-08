@@ -57,7 +57,7 @@ int initFB(void) {
 	
 	fbmmap = MAP_FAILED;
 	
-	if ((fbfd = open(framebuffer_device, O_RDWR)) == -1) {
+	if ((fbfd = open(framebuffer_device, O_RDONLY)) == -1) {
 		L("Cannot open fb device %s\n", framebuffer_device);
 		return -1;
 	}
@@ -79,7 +79,7 @@ int initFB(void) {
 	
 	size_t fbSize = roundUpToPageSize(fscrinfo.line_length * size);
 	
-	fbmmap = mmap(NULL, fbSize , PROT_READ|PROT_WRITE ,  MAP_SHARED , fbfd, 0);
+	fbmmap = mmap(NULL, fbSize, PROT_READ, MAP_SHARED, fbfd, 0);
 	
 	if (fbmmap == MAP_FAILED) {
 		L("mmap failed\n");
