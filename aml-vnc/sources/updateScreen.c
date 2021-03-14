@@ -40,9 +40,9 @@ void FUNCTION(void) {
 		for (i = 0; i < vncscr->width; i+=COMPRECT) {
 			if (a[i + offset] != b[i + offset]) {
 				max_x=MAX(i + COMPRECT, max_x);
-				min_x=MIN(i, min_x);
+				min_x=MIN(i - COMPRECT, min_x);
 				max_y=MAX(j + COMPRECT, max_y);
-				min_y=MIN(j, min_y);
+				min_y=MIN(j - COMPRECT, min_y);
 				idle = 0;
 			}
 		}
